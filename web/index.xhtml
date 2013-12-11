@@ -1,0 +1,26 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Currency Converter</title>
+        #{forexManager.init()}
+    </h:head>
+    <h:body>
+        <p>Please choose currencies to convert between below:</p>
+        <h:form>
+            <h:outputLabel for="fromcurrency" value="From currency " />
+            <h:selectOneMenu id="fromcurrency" value="#{forexManager.fromCurrency}">
+                <f:selectItems value="#{forexManager.fromCurrencies}" />
+            </h:selectOneMenu>
+            <h:outputLabel for="tocurrency" value="To currency " />
+            <h:selectOneMenu id="tocurrency" value="#{forexManager.toCurrency}">
+                <f:selectItems value="#{forexManager.toCurrencies}" />
+            </h:selectOneMenu>
+            <h:outputLabel for="rate" value="Conversion rate: "/>
+            <h:outputText id="rate" value="#{forexManager.rate}"/>
+            <h:commandButton value="Get conversion rate" action="#{forexManager.calculateRate()}" />
+        </h:form>
+    </h:body>
+</html>
