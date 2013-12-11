@@ -29,13 +29,16 @@ public class ForexManager implements Serializable {
 // toCurrency = currencies.get(1);
 // }
     
-    
+    @PostConstruct
     public void init() {
         setDefaultCurrencies();
         fromCurrencies = converterFacade.getFromCurrencies();
         toCurrencies = converterFacade.getToCurrencies();
     }
     
+    public void dummy() {
+        System.out.println("fromCurrency: " + fromCurrency);
+    }
     
     private String jsf22Bugfix() {
         return "";
