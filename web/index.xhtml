@@ -5,22 +5,23 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <title>Currency Converter</title>
-        #{forexManager.init()}
     </h:head>
     <h:body>
         <p>Please choose currencies to convert between below:</p>
         <h:form>
             <h:outputLabel for="fromcurrency" value="From currency " />
-            <h:selectOneMenu id="fromcurrency" value="#{forexManager.fromCurrency}">
+            <h:selectOneMenu id="fromcurrency" value="#{forexManager.fromCurrency}"
+                             required="true" >
                 <f:selectItems value="#{forexManager.fromCurrencies}" />
             </h:selectOneMenu>
             <h:outputLabel for="tocurrency" value="To currency " />
-            <h:selectOneMenu id="tocurrency" value="#{forexManager.toCurrency}">
+            <h:selectOneMenu id="tocurrency" value="#{forexManager.toCurrency}" 
+                             required="true" >
                 <f:selectItems value="#{forexManager.toCurrencies}" />
             </h:selectOneMenu>
             <h:outputLabel for="rate" value="Conversion rate: "/>
             <h:outputText id="rate" value="#{forexManager.rate}"/>
-            <h:commandButton value="Get conversion rate" action="#{forexManager.calculateRate()}" />
+            <h:commandButton value="Get conversion rate" action="#{forexManager.calculateRate}" />
         </h:form>
     </h:body>
 </html>
