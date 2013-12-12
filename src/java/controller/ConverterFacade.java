@@ -1,5 +1,6 @@
 package controller;
 
+import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
@@ -58,6 +59,11 @@ public class ConverterFacade {
     }
    
     public double convert(double amount, double rate) {
-        return amount * rate;
+        //convert to BigDecimal to avoid floating point rounding errors
+        //this eats up server resources but gives us more precise results.
+        BigDecimal amountBD = new BigDecimal(amount);
+        BigDecimal rateBD = new BigDecimal(rate);
+        return amountBD.multiply(rateBD).setScale(2, BigDecimal.ROUND_HALF_UP).
+                doubleValue();
     }
 }
