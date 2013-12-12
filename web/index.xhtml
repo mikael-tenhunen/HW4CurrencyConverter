@@ -9,6 +9,9 @@
     <h:body>
         <p>Please choose currencies to convert between below:</p>
         <h:form>
+            <h:outputLabel for="amountToConvert" value="#{forexManager.fromCurrency}: " />
+            <h:inputText id="amountToConvert" value="#{forexManager.amountToConvert}" />
+            <p/>
             <h:outputLabel for="fromcurrency" value="From currency " />
             <h:selectOneMenu id="fromcurrency" value="#{forexManager.fromCurrency}"
                              required="true" >
@@ -21,7 +24,10 @@
             </h:selectOneMenu>
             <h:outputLabel for="rate" value="Conversion rate: "/>
             <h:outputText id="rate" value="#{forexManager.rate}"/>
-            <h:commandButton value="Get conversion rate" action="#{forexManager.calculateRate}" />
+            <h:commandButton value="Convert" action="#{forexManager.convert}" />
+            <p/>
+            <h:outputLabel for="amountConverted" value="#{forexManager.toCurrency}: " />
+            <h:outputText id="amountConverted" value="#{forexManager.amountConverted}" />
         </h:form>
     </h:body>
 </html>
