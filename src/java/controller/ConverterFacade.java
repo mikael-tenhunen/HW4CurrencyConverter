@@ -24,12 +24,17 @@ public class ConverterFacade {
     
     
     public double getRate(String fromCurrency, String toCurrency) {
-        Query findRate = em.createQuery("SELECT e.rate FROM ExchangeRate e WHERE "
-                + "e.fromcurrency = :fromCurrency AND "
-                + "e.tocurrency = :toCurrency");
-        findRate.setParameter("fromCurrency", fromCurrency);
-        findRate.setParameter("toCurrency", toCurrency);
-        return (double) findRate.getSingleResult();
+        if (fromCurrency.equals(toCurrency)) {
+            return 1.0;
+        }
+        else {
+            Query findRate = em.createQuery("SELECT e.rate FROM ExchangeRate e WHERE "
+                    + "e.fromcurrency = :fromCurrency AND "
+                    + "e.tocurrency = :toCurrency");
+            findRate.setParameter("fromCurrency", fromCurrency);
+            findRate.setParameter("toCurrency", toCurrency);
+            return (double) findRate.getSingleResult();
+        }
     }
     
     public String getCurrency(int id) {

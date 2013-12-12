@@ -42,12 +42,7 @@ public class ForexManager implements Serializable {
     }
     
     public void convert() {
-        if (fromCurrency.equals(toCurrency)){
-            rate = 1;
-        }
-        else {
-           rate = converterFacade.getRate(fromCurrency, toCurrency); 
-        }
+        rate = converterFacade.getRate(fromCurrency, toCurrency); 
         amountConverted = converterFacade.convert(amountToConvert, rate);
     } 
 
