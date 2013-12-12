@@ -1,7 +1,6 @@
 package view;
 
 import controller.ConverterFacade;
-import model.ExchangeRateDTO;
 import java.io.Serializable;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -15,7 +14,6 @@ import javax.inject.Named;
 public class ForexManager implements Serializable {
     @EJB
     private ConverterFacade converterFacade;
-    private ExchangeRateDTO forexDTO;
     private String fromCurrency;
     private String toCurrency;
     private double rate;
@@ -60,14 +58,6 @@ public class ForexManager implements Serializable {
 
     public void setToCurrencies(List<String> toCurrencies) {
         this.toCurrencies = toCurrencies;
-    }
-
-    public ExchangeRateDTO getForexDTO() {
-        return forexDTO;
-    }
-
-    public void setForexDTO(ExchangeRateDTO forexDTO) {
-        this.forexDTO = forexDTO;
     }
 
     public String getFromCurrency() {
