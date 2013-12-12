@@ -11,6 +11,8 @@ import javax.ejb.TransactionAttributeType;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import model.ExchangeRate;
+import model.ExchangeRateKey;
 
 /**
 *
@@ -28,12 +30,14 @@ public class ConverterFacade {
             return 1.0;
         }
         else {
-            Query findRate = em.createQuery("SELECT e.rate FROM ExchangeRate e WHERE "
-                    + "e.fromcurrency = :fromCurrency AND "
-                    + "e.tocurrency = :toCurrency");
-            findRate.setParameter("fromCurrency", fromCurrency);
-            findRate.setParameter("toCurrency", toCurrency);
-            return (double) findRate.getSingleResult();
+            //This is the code we used when we didn't have a composite key in ExchangeRate
+//            Query findRate = em.createQuery("SELECT e.rate FROM ExchangeRate e WHERE "
+//                    + "e.fromcurrency = :fromCurrency AND "
+//                    + "e.tocurrency = :toCurrency");
+//            findRate.setParameter("fromCurrency", fromCurrency);
+//            findRate.setParameter("toCurrency", toCurrency);
+//            return (double) findRate.getSingleResult();
+            return em.find(ExchangeRate.class, new ExchangeRateKey(fromCurrency, toCurrency)).getRate();
         }
     }
     
