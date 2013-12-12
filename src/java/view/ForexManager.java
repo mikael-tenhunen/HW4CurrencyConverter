@@ -11,7 +11,7 @@ import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 
 @Named("forexManager")
-@ConversationScoped
+@RequestScoped
 public class ForexManager implements Serializable {
     @EJB
     private ConverterFacade converterFacade;
@@ -21,19 +21,16 @@ public class ForexManager implements Serializable {
     private double rate;
     private List<String> fromCurrencies;
     private List<String> toCurrencies;
-    
-// public ForexManager() {
-// forexDTO = converterFacade.persistForex();
-// currencies = converterFacade.getCurrencies();
-// fromCurrency = currencies.get(0);
-// toCurrency = currencies.get(1);
-// }
+    private double amountToConvert;
+    private double amountConverted;
+
     
     @PostConstruct
     public void init() {
-        setDefaultCurrencies();
         fromCurrencies = converterFacade.getFromCurrencies();
         toCurrencies = converterFacade.getToCurrencies();
+        fromCurrency = fromCurrencies.get(0);
+        toCurrency = toCurrencies.get(0);
     }
     
     public void dummy() {
@@ -44,14 +41,15 @@ public class ForexManager implements Serializable {
         return "";
     }
     
-    public void calculateRate() {
-        rate = converterFacade.getRate(fromCurrency, toCurrency);
-    }
-    
-    public void setDefaultCurrencies() {
-        fromCurrency = converterFacade.getCurrency(1);
-        toCurrency = converterFacade.getCurrency(2);
-    }   
+    public void convert() {
+        if (fromCurrency.equals(toCurrency)){
+            rate = 1;
+        }
+        else {
+           rate = converterFacade.getRate(fromCurrency, toCurrency); 
+        }
+        amountConverted = converterFacade.convert(amountToConvert, rate);
+    } 
 
     public List<String> getFromCurrencies() {
         return fromCurrencies;
@@ -100,6 +98,20 @@ public class ForexManager implements Serializable {
     public void setRate(double rate) {
         this.rate = rate;
     }
-    
-    
+
+    public double getAmountToConvert() {
+        return amountToConvert;
+    }
+
+    public void setAmountToConvert(double amountToConvert) {
+        this.amountToConvert = amountToConvert;
+    }
+
+    public double getAmountConverted() {
+        return amountConverted;
+    }
+
+    public void setAmountConverted(double amountConverted) {
+        this.amountConverted = amountConverted;
+    }
 }

@@ -56,4 +56,8 @@ public class ConverterFacade {
          List<String> noDuplicates = new LinkedList(set);
          return noDuplicates;
     }
+   
+    public double convert(double amount, double rate) {
+        return amount * rate;
+    }
 }
