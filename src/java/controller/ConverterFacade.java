@@ -14,29 +14,18 @@ import javax.persistence.Query;
 import model.ExchangeRate;
 import model.ExchangeRateKey;
 
-/**
-*
-* @author miikka
-*/
+
 @Stateless
 @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
 public class ConverterFacade {
     @PersistenceContext(unitName = "HW4CurrencyConverterPU")
     private EntityManager em;
     
-    
     public double getRate(String fromCurrency, String toCurrency) {
         if (fromCurrency.equals(toCurrency)) {
             return 1.0;
         }
         else {
-            //This is the code we used when we didn't have a composite key in ExchangeRate
-//            Query findRate = em.createQuery("SELECT e.rate FROM ExchangeRate e WHERE "
-//                    + "e.fromcurrency = :fromCurrency AND "
-//                    + "e.tocurrency = :toCurrency");
-//            findRate.setParameter("fromCurrency", fromCurrency);
-//            findRate.setParameter("toCurrency", toCurrency);
-//            return (double) findRate.getSingleResult();
             return em.find(ExchangeRate.class, new ExchangeRateKey(fromCurrency, toCurrency)).getRate();
         }
     }

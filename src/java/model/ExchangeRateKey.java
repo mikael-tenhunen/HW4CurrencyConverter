@@ -6,6 +6,9 @@ public class ExchangeRateKey implements Serializable{
     private String fromcurrency;
     private String tocurrency;
     
+    public ExchangeRateKey() {
+    }
+    
     public ExchangeRateKey(String fromcurrency, String tocurrency) {
         this.fromcurrency = fromcurrency;
         this.tocurrency = tocurrency;

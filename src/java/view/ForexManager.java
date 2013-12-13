@@ -40,7 +40,7 @@ public class ForexManager implements Serializable {
     }
     
     public void convert() {
-        rate = converterFacade.getRate(fromCurrency, toCurrency); 
+        rate = converterFacade.getRate(fromCurrency, toCurrency);
         amountConverted = converterFacade.convert(amountToConvert, rate);
     } 
 
