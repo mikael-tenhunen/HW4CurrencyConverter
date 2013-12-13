@@ -1,10 +1,7 @@
 package controller;
 
 import java.math.BigDecimal;
-import java.util.HashSet;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Set;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
@@ -30,30 +27,16 @@ public class ConverterFacade {
         }
     }
     
-    public String getCurrency(int id) {
-        Query findCurrency = em.createQuery("SELECT e.fromcurrency FROM ExchangeRate e "
-                + "WHERE e.id = :id");
-        findCurrency.setParameter("id", id);
-        return (String) findCurrency.getSingleResult();
-    }
-    
     public List<String> getFromCurrencies() {
-        Query allCurrencies = em.createQuery("SELECT e.fromcurrency FROM ExchangeRate e");
+        Query allCurrencies = em.createQuery("SELECT DISTINCT e.fromcurrency FROM ExchangeRate e");
         List<String> currencies = (List<String>) allCurrencies.getResultList();
-        return removeDuplicates(currencies);
+        return currencies;
     }
     
     public List<String> getToCurrencies() {
-        Query allCurrencies = em.createQuery("SELECT e.tocurrency FROM ExchangeRate e");
+        Query allCurrencies = em.createQuery("SELECT DISTINCT e.tocurrency FROM ExchangeRate e");
         List<String> currencies = (List<String>) allCurrencies.getResultList();
-        return removeDuplicates(currencies);
-    }
-    
-    private List<String> removeDuplicates(List<String> list) {
-         Set<String> set = new HashSet();
-         set.addAll(list);
-         List<String> noDuplicates = new LinkedList(set);
-         return noDuplicates;
+        return currencies;
     }
    
     public double convert(double amount, double rate) {
